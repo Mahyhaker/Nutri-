@@ -29,7 +29,7 @@ O projeto destina-se a qualquer pessoa interessada em melhorar seus hábitos ali
     <p><strong>Interface Principal - Aba Buscar Alimentos</strong></p>
 </div>
 
-Aba - Assistente IA
+
 <div align="center">
     <img src="./images/assistente-ia.png" alt="Assistente IA - Nutri+" width="700">
     <p><strong>Chat com Assistente Nutricional Inteligente</strong></p>
