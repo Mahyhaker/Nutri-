@@ -24,7 +24,10 @@ O projeto destina-se a qualquer pessoa interessada em melhorar seus hábitos ali
 
 ## Funcionalidades do Site
 
-![alt text](image.png)
+<div align="center">
+    <img src="./images/interface-principal.png" alt="Interface Principal - Nutri+" width="700">
+    <p><strong>Interface Principal - Aba Buscar Alimentos</strong></p>
+</div>
 
 ### 1. Busca de Alimentos em Português
 - Campo de busca com sugestões em tempo real
