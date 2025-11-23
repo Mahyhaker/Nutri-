@@ -24,6 +24,8 @@ O projeto destina-se a qualquer pessoa interessada em melhorar seus hábitos ali
 
 ## Funcionalidades do Site
 
+![alt text](image.png)
+
 ### 1. Busca de Alimentos em Português
 - Campo de busca com sugestões em tempo real
 - Tradução automática de termos de busca do português para inglês
