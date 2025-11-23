@@ -1,16 +1,17 @@
 # Nutri+ - Rastreador de Nutrição Inteligente
 
 ## Índice de Conteúdos
-- [Introdução]
-- [Funcionalidades do Site]
-- [Tecnologias Utilizadas]
-- [Estrutura do Projeto]
-- [Código HTML]
-- [Código CSS]
-- [Código JavaScript]
-- [APIs Utilizadas]
-- [Como Usar]
-- [Conclusões]
+- [Introdução](#introdução)
+- [Screenshots](#screenshots)
+- [Funcionalidades do Site](#funcionalidades-do-site)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Código HTML](#código-html)
+- [Código CSS](#código-css)
+- [Código JavaScript](#código-javascript)
+- [APIs Utilizadas](#apis-utilizadas)
+- [Como Usar](#como-usar)
+- [Conclusões](#conclusões)
 
 ---
 
@@ -22,18 +23,23 @@ O projeto destina-se a qualquer pessoa interessada em melhorar seus hábitos ali
 
 ---
 
-## Funcionalidades do Site
+## Screenshots
 
+### Aba - Buscar Alimentos
 <div align="center">
     <img src="./images/interface-principal.png" alt="Interface Principal - Nutri+" width="700">
-    <p><strong>Interface Principal - Aba Buscar Alimentos</strong></p>
+    <p><strong>Busca de Alimentos com Análise Nutricional</strong></p>
 </div>
 
-
+### Aba - Assistente IA
 <div align="center">
     <img src="./images/assistente-ia.png" alt="Assistente IA - Nutri+" width="700">
     <p><strong>Chat com Assistente Nutricional Inteligente</strong></p>
 </div>
+
+---
+
+## Funcionalidades do Site
 
 ### 1. Busca de Alimentos em Português
 - Campo de busca com sugestões em tempo real
@@ -504,4 +510,3 @@ A aplicação demonstra como integrar múltiplas APIs em uma experiência fluida
 - App mobile (React Native ou Flutter)
 - Detecção de alimentos via câmera
 - Comunidade e compartilhamento de progresso
-
