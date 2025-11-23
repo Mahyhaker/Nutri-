@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutri+ - Rastreador de Nutrição Inteligente</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <span class="icon">🍎</span>
+                    Nutri+
+                </h1>
+                <p class="app-subtitle">Acompanhe sua nutrição diária de forma inteligente</p>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="streakDays">0</span>
+                        <span class="stat-label">dias consecutivos</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="totalFoods">0</span>
+                        <span class="stat-label">alimentos registrados</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="app-nav">
+            <button class="nav-btn active" data-tab="food">
+                <span class="nav-icon">🍔</span>
+                Buscar Alimentos
+            </button>
+            <button class="nav-btn" data-tab="ai">
+                <span class="nav-icon">🤖</span>
+                Assistente IA
+            </button>
+            <button class="nav-btn" data-tab="analytics">
+                <span class="nav-icon">📊</span>
+                Análises
+            </button>
+        </nav>
+
+        <div class="app-body">
+            <!-- Main Content -->
+            <main class="main-section">
+                <!-- Food Search Tab -->
+                <section id="food-tab" class="tab-content active">
+                    <div class="search-section">
+                        <h2 class="section-title">
+                            <span class="title-icon">🔍</span>
+                            Adicionar Alimento
+                        </h2>
+                        
+                        <div class="search-form">
+                            <div class="search-input-wrapper">
+                                <input 
+                                    type="text" 
+                                    id="foodSearch" 
+                                    class="search-input" 
+                                    placeholder="Busque por alimentos em português (ex: maçã, peito de frango, arroz)"
+                                    autocomplete="off"
+                                >
+                                <div class="search-suggestions" id="searchSuggestions"></div>
+                            </div>
+                            <button onclick="buscarAlimentos()" class="btn btn-primary" id="searchBtn">
+                                <span class="btn-text">Buscar</span>
+                                <span class="btn-loader" style="display: none;">⏳</span>
+                            </button>
+                        </div>
+
+                        <div class="quick-add">
+                            <div class="quick-add-title">🚀 Busca Rápida:</div>
+                            <div class="quick-add-buttons">
+                                <button class="quick-btn" onclick="buscarRapido('maçã')">🍎 Maçã</button>
+                                <button class="quick-btn" onclick="buscarRapido('banana')">🍌 Banana</button>
+                                <button class="quick-btn" onclick="buscarRapido('arroz')">🍚 Arroz</button>
+                                <button class="quick-btn" onclick="buscarRapido('peito de frango')">🍗 Frango</button>
+                                <button class="quick-btn" onclick="buscarRapido('pão integral')">🍞 Pão</button>
+                                <button class="quick-btn" onclick="buscarRapido('leite')">🥛 Leite</button>
+                                <button class="quick-btn" onclick="buscarRapido('ovo')">🥚 Ovo</button>
+                                <button class="quick-btn" onclick="buscarRapido('salmão')">🐟 Salmão</button>
+                            </div>
+                        </div>
+
+                        <div id="searchResults" class="search-results"></div>
+                    </div>
+                </section>
+
+                <!-- AI Assistant Tab -->
+                <section id="ai-tab" class="tab-content">
+                    <div class="ai-section">
+                        <h2 class="section-title">
+                            <span class="title-icon">🤖</span>
+                            Assistente Nutricional IA
+                        </h2>
+                        
+                        <div class="ai-chat">
+                            <div id="chatMessages" class="chat-messages">
+                                <div class="ai-message">
+                                    <div class="ai-avatar">🤖</div>
+                                    <div class="message-content">
+                                        Olá! 👋 Sou seu assistente nutricional inteligente. Posso te ajudar com:
+                                        <ul>
+                                            <li>💡 Dicas personalizadas de alimentação</li>
+                                            <li>🍽️ Sugestões de refeições balanceadas</li>
+                                            <li>📊 Análise dos seus hábitos alimentares</li>
+                                            <li>❓ Respostas sobre nutrição</li>
+                                        </ul>
+                                        O que você gostaria de saber?
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="chat-input-container">
+                                <div class="chat-input-wrapper">
+                                    <input 
+                                        type="text" 
+                                        id="chatInput" 
+                                        class="chat-input" 
+                                        placeholder="Faça uma pergunta sobre nutrição ou peça sugestões..."
+                                        maxlength="500"
+                                    >
+                                    <span class="char-counter" id="charCounter">0/500</span>
+                                </div>
+                                <button onclick="enviarMensagem()" class="btn btn-ai" id="sendBtn">
+                                    <span class="btn-text">Enviar</span>
+                                    <span class="btn-loader" style="display: none;">⏳</span>
+                                </button>
+                            </div>
+                            
+                            <div class="quick-questions">
+                                <div class="quick-questions-title">💬 Perguntas Rápidas:</div>
+                                <div class="quick-questions-buttons">
+                                    <button class="quick-question-btn" onclick="perguntaRapida('Me sugira um café da manhã saudável e nutritivo')">
+                                        ☕ Café da manhã
+                                    </button>
+                                    <button class="quick-question-btn" onclick="perguntaRapida('Como posso aumentar minha ingestão de proteína de forma saudável?')">
+                                        💪 Mais proteína
+                                    </button>
+                                    <button class="quick-question-btn" onclick="perguntaRapida('Me sugira um lanche saudável para a tarde')">
+                                        🥜 Lanche saudável
+                                    </button>
+                                    <button class="quick-question-btn" onclick="perguntaRapida('Como está minha alimentação hoje? Me dê uma análise detalhada.')">
+                                        📊 Analisar dia
+                                    </button>
+                                    <button class="quick-question-btn" onclick="perguntaRapida('Quais alimentos são ricos em ferro?')">
+                                        🩸 Alimentos ricos em ferro
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Analytics Tab -->
+                <section id="analytics-tab" class="tab-content">
+                    <div class="analytics-section">
+                        <h2 class="section-title">
+                            <span class="title-icon">📊</span>
+                            Análises Nutricionais
+                        </h2>
+                        
+                        <div class="analytics-grid">
+                            <div class="analytics-card">
+                                <h3 class="card-title">📈 Tendência Semanal</h3>
+                                <div class="weekly-chart" id="weeklyChart">
+                                    <div class="chart-placeholder">Dados sendo processados...</div>
+                                </div>
+                            </div>
+                            
+                            <div class="analytics-card">
+                                <h3 class="card-title">🥗 Distribuição de Macros</h3>
+                                <div class="macro-distribution" id="macroDistribution">
+                                    <div class="macro-pie">
+                                        <canvas id="macroChart" width="200" height="200"></canvas>
+                                    </div>
+                                    <div class="macro-legend">
+                                        <div class="legend-item protein">
+                                            <span class="legend-color"></span>
+                                            <span class="legend-label">Proteínas</span>
+                                            <span class="legend-value" id="proteinPercent">0%</span>
+                                        </div>
+                                        <div class="legend-item carbs">
+                                            <span class="legend-color"></span>
+                                            <span class="legend-label">Carboidratos</span>
+                                            <span class="legend-value" id="carbsPercent">0%</span>
+                                        </div>
+                                        <div class="legend-item fat">
+                                            <span class="legend-color"></span>
+                                            <span class="legend-label">Gorduras</span>
+                                            <span class="legend-value" id="fatPercent">0%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!-- Daily Summary -->
+                <div class="daily-summary">
+                    <div class="date-display" id="currentDate"></div>
+                    
+                    <div class="calories-circle" id="caloriesCircle">
+                        <div class="calories-display">
+                            <div class="calories-consumed" id="caloriesConsumed">0</div>
+                            <div class="calories-goal">/ <span id="calorieGoal">2000</span> kcal</div>
+                            <div class="calories-percentage" id="caloriesPercentage">0%</div>
+                        </div>
+                    </div>
+
+                    <div class="macros-grid">
+                        <div class="macro-item protein">
+                            <div class="macro-icon">💪</div>
+                            <div class="macro-value" id="proteinValue">0g</div>
+                            <div class="macro-label">Proteína</div>
+                            <div class="macro-bar">
+                                <div class="macro-progress protein-progress" id="proteinProgress"></div>
+                            </div>
+                        </div>
+                        <div class="macro-item carbs">
+                            <div class="macro-icon">🌾</div>
+                            <div class="macro-value" id="carbsValue">0g</div>
+                            <div class="macro-label">Carboidratos</div>
+                            <div class="macro-bar">
+                                <div class="macro-progress carbs-progress" id="carbsProgress"></div>
+                            </div>
+                        </div>
+                        <div class="macro-item fat">
+                            <div class="macro-icon">🥑</div>
+                            <div class="macro-value" id="fatValue">0g</div>
+                            <div class="macro-label">Gordura</div>
+                            <div class="macro-bar">
+                                <div class="macro-progress fat-progress" id="fatProgress"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Goal Settings -->
+                    <div class="goal-settings">
+                        <button class="btn btn-secondary btn-small" onclick="abrirConfiguracoesMetas()">
+                            ⚙️ Ajustar Metas
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Food Log -->
+                <div class="food-log">
+                    <div class="log-header">
+                        <h3 class="log-title">🍽️ Alimentos Consumidos</h3>
+                        <button class="btn btn-secondary btn-small" onclick="limparLog()" id="clearLogBtn" style="display: none;">
+                            🗑️ Limpar
+                        </button>
+                    </div>
+                    <div id="foodLog" class="empty-state">
+                        <div class="empty-icon">🍽️</div>
+                        <p>Nenhum alimento adicionado ainda.<br>Comece buscando um alimento!</p>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="goalSettingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>⚙️ Configurar Metas Diárias</h3>
+                <button class="modal-close" onclick="fecharModal('goalSettingsModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="calorieGoalInput">🔥 Meta de Calorias (kcal)</label>
+                    <input type="number" id="calorieGoalInput" min="1000" max="5000" step="50">
+                </div>
+                <div class="form-group">
+                    <label for="proteinGoalInput">💪 Meta de Proteína (g)</label>
+                    <input type="number" id="proteinGoalInput" min="50" max="300" step="5">
+                </div>
+                <div class="form-group">
+                    <label for="carbsGoalInput">🌾 Meta de Carboidratos (g)</label>
+                    <input type="number" id="carbsGoalInput" min="100" max="500" step="10">
+                </div>
+                <div class="form-group">
+                    <label for="fatGoalInput">🥑 Meta de Gordura (g)</label>
+                    <input type="number" id="fatGoalInput" min="30" max="200" step="5">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="fecharModal('goalSettingsModal')">Cancelar</button>
+                <button class="btn btn-primary" onclick="salvarMetas()">Salvar Metas</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Carregando...</p>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
